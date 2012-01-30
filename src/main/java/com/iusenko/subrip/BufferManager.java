@@ -1,11 +1,8 @@
 package com.iusenko.subrip;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Collections;
-import java.util.List;
 
 /**
  *
@@ -13,86 +10,46 @@ import java.util.List;
  */
 public class BufferManager {
 
-    private static final int BUFFER_SIZE = 1024;
+    public static final byte[] EMPTY_BUFFER = new byte[0];
+    public static final int BUFFER_SIZE = 1024;
     private RandomAccessFile file;
     private String path;
     private long position = 0;
     private byte[] buffer = new byte[BUFFER_SIZE];
 
-    BufferManager(String path, long position) throws FileNotFoundException, IOException {
-        if (position < 0) {
-            throw new IllegalArgumentException("File: " + path + ", initial position is negative");
-        }
+    public BufferManager(String path, long seekPosition) throws FileNotFoundException, IOException {
         this.path = path;
         this.file = new RandomAccessFile(path, "r");
 
-        this.position = position;
-        if (position < this.file.length()) {
-            this.file.seek(this.position);
-        } else {
-            
-        }
+        this.position = seekPosition;
+        this.file.seek(this.position);
     }
 
-    BufferManager(String path) throws FileNotFoundException, IOException {
+    public BufferManager(String path) throws FileNotFoundException, IOException {
         this(path, 0);
     }
 
-    List<Phrase> getNext() throws Exception {
-        if (position < this.file.length()) {
-
-            file.seek(position);
-            int read = readIntoBuffer();
-            if (read == 0) {
-                
-            } else {
-                position += read;
-
-                return parse(buffer, read);
-            }
+    public int updateWithNext() throws IOException {
+        if (position >= file.length()) {
+            return -1;
         }
-        return Collections.EMPTY_LIST;
-    }
-
-    List<Phrase> getPrev() throws Exception {
-        if (position > 0) {
-            position = (position - BUFFER_SIZE) > 0 ? (position - BUFFER_SIZE) : 0;
-            if (position == 0) {
-                // throw event : start reached                
-            }
-
-            file.seek(position);
-            int read = readIntoBuffer();
-            if (read == 0) {
-            } else {
-                position += read;                
-                return parse(buffer, read);
-            }
-        } else {
-        }
-        return Collections.EMPTY_LIST;
-    }
-
-    protected int readIntoBuffer() throws IOException {
         int read = file.read(buffer);
-        if (read == -1) {
-            // throw event            
-
-            return 0;
+        if (read > 0) {
+            position += read;
         }
         return read;
     }
 
-    protected List<Phrase> parse(byte[] buffer, int length) throws Exception {
-        ByteArrayInputStream in = new ByteArrayInputStream(buffer, 0, length);
-        SubRipParser subParser = new SubRipParser(in);
-        List<Phrase> phrases;
-        try {
-            phrases = subParser.getPhrases();
-        } catch (Exception ex) {
-            throw ex;
+    public int updateWithPrev() throws IOException {
+        long backPosition = position - BUFFER_SIZE * 2;
+        position = backPosition > 0 ? backPosition : 0l;
+        System.err.println("seek to " + position);
+        file.seek(position);
+        int read = file.read(buffer);
+        if (read > 0) {
+            position += read;
         }
-        return phrases;
+        return read;
     }
 
     public void close() {
@@ -103,7 +60,15 @@ public class BufferManager {
         }
     }
 
-    public String getPath() {
+    public final String getPath() {
         return path;
+    }
+
+    public final long getPosition() {
+        return position;
+    }
+
+    public final byte[] getBuffer() {
+        return buffer;
     }
 }

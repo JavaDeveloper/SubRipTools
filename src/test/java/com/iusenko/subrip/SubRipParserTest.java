@@ -1,8 +1,6 @@
 package com.iusenko.subrip;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
