@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-class SubRipParser {
+public class SubRipParser {
 
     private static final Pattern phraseNumberPattern = Pattern.compile("^\\d+");
     private static final Pattern timePattern = Pattern.compile("\\d+(:\\d+)+,\\d+\\s+-->\\s+\\d+(:\\d+)+,\\d+");

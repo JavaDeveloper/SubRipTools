@@ -42,8 +42,7 @@ public class BufferManager {
 
     public int updateWithPrev() throws IOException {
         long backPosition = position - BUFFER_SIZE * 2;
-        position = backPosition > 0 ? backPosition : 0l;
-        System.err.println("seek to " + position);
+        position = backPosition > 0 ? backPosition : 0l;        
         file.seek(position);
         int read = file.read(buffer);
         if (read > 0) {
