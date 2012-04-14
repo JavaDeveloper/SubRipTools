@@ -32,7 +32,7 @@ public class SubRipParser {
 
         while ((line = in.readLine()) != null) {
             line = line.trim();
-            
+
             if (isPhraseNumber(line)) {
                 phrase = new Phrase();
                 phrase.setNumber(Integer.parseInt(line));
