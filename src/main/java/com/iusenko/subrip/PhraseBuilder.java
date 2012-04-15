@@ -1,10 +1,10 @@
-package com.iusenko.subrip.srt;
+package com.iusenko.subrip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.iusenko.subrip.Utils;
+import com.iusenko.subrip.old.Utils;
 
 /**
  * 

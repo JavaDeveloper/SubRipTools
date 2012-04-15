@@ -1,8 +1,11 @@
-package com.iusenko.subrip.srt;
+package com.iusenko.subrip;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
+
+import com.iusenko.subrip.PhraseBuilder;
+import com.iusenko.subrip.PhraseParserException;
 
 /**
  * 

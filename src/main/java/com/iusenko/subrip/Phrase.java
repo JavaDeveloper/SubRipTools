@@ -1,61 +1,76 @@
 package com.iusenko.subrip;
 
-import java.io.Serializable;
+/**
+ * 
+ * @author iusenko
+ */
+public class Phrase {
+	public static final Phrase END = new Phrase();
 
-public class Phrase implements Serializable {
+	private int id;
+	private long startTime;
+	private long endTime;
+	private String startTimeText;
+	private String endTimeText;
+	private String text;
 
-    private int number;
-    private String text;
-    private String fromTime;
-    private String toTime;
+	public long getEndTime() {
+		return endTime;
+	}
 
-    public Phrase(String text) {
-        this.text = text;
-        this.fromTime = "00:00:00.00";
-        this.toTime = "00:00:00.00";
-    }
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
 
-    public Phrase() {
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public long getStartTime() {
+		return startTime;
+	}
 
-    public String getFromTime() {
-        return fromTime;
-    }
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
 
-    public void setFromTime(String fromTime) {
-        this.fromTime = fromTime;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public String getToTime() {
-        return toTime;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    public void setToTime(String toTime) {
-        this.toTime = toTime;
-    }
+	public String getStartTimeText() {
+		return startTimeText;
+	}
 
-    public int getNumber() {
-        return number;
-    }
+	public void setStartTimeText(String startTimeText) {
+		this.startTimeText = startTimeText;
+	}
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+	public String getEndTimeText() {
+		return endTimeText;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("number=").append(number);
-        sb.append(", time=").append(fromTime).append(":").append(toTime);
-        sb.append(", text=").append(text);
-        return sb.toString();
-    }
+	public void setEndTimeText(String endTimeText) {
+		this.endTimeText = endTimeText;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(id);
+		sb.append(" ");
+		sb.append(startTimeText).append("(").append(startTime).append(")");
+		sb.append(" --> ");
+		sb.append(endTimeText).append("(").append(endTime).append(")");
+		sb.append(" ");
+		sb.append(text);
+		return sb.toString();
+	}
 }

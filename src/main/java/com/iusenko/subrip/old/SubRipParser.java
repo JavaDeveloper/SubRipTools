@@ -1,4 +1,4 @@
-package com.iusenko.subrip;
+package com.iusenko.subrip.old;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

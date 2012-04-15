@@ -1,4 +1,4 @@
-package com.iusenko.subrip.srt;
+package com.iusenko.subrip;
 
 /**
  *

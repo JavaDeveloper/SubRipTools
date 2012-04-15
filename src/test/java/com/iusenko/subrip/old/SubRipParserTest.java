@@ -1,8 +1,12 @@
-package com.iusenko.subrip;
+package com.iusenko.subrip.old;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import org.junit.Test;
+
+import com.iusenko.subrip.old.Phrase;
+import com.iusenko.subrip.old.SubRipParser;
+
 import static org.junit.Assert.*;
 
 /**
