@@ -9,7 +9,7 @@ import java.util.Date;
  *
  * @author iusenko
  */
-public class SrtUnitBuilder {
+public class PhraseBuilder {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm:ss,SSS");
     private static final String TIME_DELIM = "-->";
@@ -17,23 +17,23 @@ public class SrtUnitBuilder {
     private String id;
     private String text;
 
-    public SrtUnitBuilder timeline(String timeline) {
+    public PhraseBuilder timeline(String timeline) {
         this.timeline = timeline;
         return this;
     }
 
-    public SrtUnitBuilder id(String id) {
+    public PhraseBuilder id(String id) {
         this.id = id;
         return this;
     }
 
-    public SrtUnitBuilder text(String text) {
+    public PhraseBuilder text(String text) {
         this.text = text;
         return this;
     }
 
-    public SrtUnit create() throws SrtParserException {
-        SrtUnit unit = new SrtUnit();
+    public Phrase create() throws PhraseParserException {
+        Phrase unit = new Phrase();
         unit.setId(getId(id));
         String[] startEnd = splitTimeline(timeline);
         unit.setStartTime(getTimestamp(startEnd[0]));
@@ -42,34 +42,34 @@ public class SrtUnitBuilder {
         return unit;
     }
 
-    protected String[] splitTimeline(String timeline) throws SrtParserException {
+    protected String[] splitTimeline(String timeline) throws PhraseParserException {
         String[] startAndEnd = timeline.split(TIME_DELIM);
         if (startAndEnd.length != 2) {
-            throw new SrtParserException("time line has wrong format:" + timeline);
+            throw new PhraseParserException("time line has wrong format:" + timeline);
         }
         for (int i = 0; i < startAndEnd.length; i++) {
             startAndEnd[i] = startAndEnd[i].trim();
             if (Utils.isBlank(startAndEnd[i])) {
-                throw new SrtParserException("blank " + (i == 0 ? "start" : "end") + " timestamp value");
+                throw new PhraseParserException("blank " + (i == 0 ? "start" : "end") + " timestamp value");
             }
         }
         return startAndEnd;
     }
 
-    protected long getTimestamp(String timestamp) throws SrtParserException {
+    protected long getTimestamp(String timestamp) throws PhraseParserException {
         try {
             Date date = DATE_FORMAT.parse(timestamp);
             return date.getTime();
         } catch (ParseException ex) {
-            throw new SrtParserException("timestamp string has wrong format:" + timestamp);
+            throw new PhraseParserException("timestamp string has wrong format:" + timestamp);
         }
     }
 
-    protected int getId(String id) throws SrtParserException {
+    protected int getId(String id) throws PhraseParserException {
         try {
             return Integer.parseInt(id);
         } catch (NumberFormatException e) {
-            throw new SrtParserException("id string has wrong format(not a number):" + id);
+            throw new PhraseParserException("id string has wrong format(not a number):" + id);
         }
     }
 }
