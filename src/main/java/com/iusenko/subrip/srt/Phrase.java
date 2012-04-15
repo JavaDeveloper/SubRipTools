@@ -5,10 +5,13 @@ package com.iusenko.subrip.srt;
  * @author iusenko
  */
 public class Phrase {
+	public static final Phrase END = new Phrase();
 
 	private int id;
 	private long startTime;
 	private long endTime;
+	private String startTimeText;
+	private String endTimeText;
 	private String text;
 
 	public long getEndTime() {
@@ -42,4 +45,21 @@ public class Phrase {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public String getStartTimeText() {
+		return startTimeText;
+	}
+
+	public void setStartTimeText(String startTimeText) {
+		this.startTimeText = startTimeText;
+	}
+
+	public String getEndTimeText() {
+		return endTimeText;
+	}
+
+	public void setEndTimeText(String endTimeText) {
+		this.endTimeText = endTimeText;
+	}
+
 }
