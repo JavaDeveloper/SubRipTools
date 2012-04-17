@@ -50,8 +50,18 @@ public class SubripParser {
 
 	public List<Phrase> load() throws IOException, PhraseParserException {
 		phrases = new ArrayList<Phrase>();
+
 		Phrase phrase = null;
-		while ((phrase = next()) != null) {
+		while (true) {
+			try {
+				phrase = next();
+			} catch (Exception e) {
+				e.printStackTrace();
+				continue;
+			}
+			if (phrase == null) {
+				break;
+			}
 			phrases.add(phrase);
 		}
 		return phrases;
