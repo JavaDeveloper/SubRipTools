@@ -7,12 +7,12 @@ package com.iusenko.subrip;
 public class Phrase {
 	public static final Phrase END = new Phrase();
 
-	private int id;
-	private long startTime;
-	private long endTime;
-	private String startTimeText;
-	private String endTimeText;
-	private String text;
+	public int id;
+	public long startTime;
+	public long endTime;
+	public String startTimeText;
+	public String endTimeText;
+	public String text;
 
 	public long getEndTime() {
 		return endTime;
